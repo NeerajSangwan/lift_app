@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "802252292798",
+    "project_id": "gym-lift-app",
+    "storage_bucket": "gym-lift-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802252292798:android:2ea7b3b584b1d210b514ef",
+        "android_client_info": {
+          "package_name": "com.example.lift_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5ya6NjbMJT9kQGHCSrUJAy2iQweQD90Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,286 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lift_app/core/theme/app_theme.dart';
+import 'package:lift_app/features/auth/bloc/auth_bloc.dart';
+import 'package:lift_app/features/exercises/screens/home_screen.dart';
+import 'package:lift_app/features/exercises/screens/signin_screen.dart';
+
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _SignUpScreenState();
+  }
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  final formKey = GlobalKey<FormState>();
+
+  final _nameController = TextEditingController();
+
+  final _emailController = TextEditingController();
+
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is AuthSuccess) {
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => HomeScreen()),
+            (route) => false,
+          );
+        }
+        if (state is AuthFailure) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.error)));
+        }
+      },
+      builder: (context, state) {
+        if (state is AuthLoading) {
+          return Scaffold(
+            backgroundColor: AppColors.background,
+            body: const Center(child: CircularProgressIndicator()),
+          );
+        }
+        return Scaffold(
+          backgroundColor: AppColors.background,
+
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height,
+                ),
+
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+
+                      children: [
+                        const SizedBox(height: 65),
+
+                        Text(
+                          'Sign Up',
+                          style: TextStyle(
+                            color: AppColors.primary,
+                            fontSize: 42,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 2,
+                          ),
+                        ),
+
+                        const SizedBox(height: 50),
+
+                        Form(
+                          key: formKey,
+
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                controller: _nameController,
+
+                                validator: (value) {
+                                  if (value == null ||
+                                      value.isEmpty ||
+                                      value.length < 3) {
+                                    return 'Name should be at least 3 characters';
+                                  }
+
+                                  return null;
+                                },
+
+                                decoration: InputDecoration(
+                                  hintText: 'Name',
+
+                                  contentPadding: const EdgeInsets.all(18),
+
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              ),
+
+                              const SizedBox(height: 15),
+
+                              TextFormField(
+                                controller: _emailController,
+
+                                keyboardType: TextInputType.emailAddress,
+
+                                validator: (value) {
+                                  if (value == null ||
+                                      value.isEmpty ||
+                                      !value.contains('@')) {
+                                    return 'Enter valid Email';
+                                  }
+
+                                  return null;
+                                },
+
+                                decoration: InputDecoration(
+                                  hintText: 'Email',
+
+                                  contentPadding: const EdgeInsets.all(18),
+
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              ),
+
+                              const SizedBox(height: 15),
+
+                              TextFormField(
+                                controller: _passwordController,
+
+                                obscureText: true,
+
+                                keyboardType: TextInputType.visiblePassword,
+
+                                validator: (value) {
+                                  if (value == null ||
+                                      value.isEmpty ||
+                                      value.length < 6) {
+                                    return 'Password must be at least 6 characters';
+                                  }
+
+                                  return null;
+                                },
+
+                                decoration: InputDecoration(
+                                  hintText: 'Password',
+
+                                  contentPadding: const EdgeInsets.all(18),
+
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              ),
+
+                              const SizedBox(height: 25),
+
+                              GestureDetector(
+                                onTap: () {
+                                  if (formKey.currentState!.validate()) {
+                                    context.read<AuthBloc>().add(
+                                      AuthSignupRequested(
+                                        name: _nameController.text.trim(),
+                                        email: _emailController.text.trim(),
+                                        password: _passwordController.text
+                                            .trim(),
+                                      ),
+                                    );
+                                  }
+                                },
+
+                                child: Container(
+                                  width: double.infinity,
+
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 18,
+                                  ),
+
+                                  decoration: BoxDecoration(
+                                    color: AppColors.primary,
+
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+
+                                  child: const Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+
+                                    children: [
+                                      Text(
+                                        'SIGN UP',
+
+                                        style: TextStyle(
+                                          color: AppColors.background,
+
+                                          fontSize: 16,
+
+                                          fontWeight: FontWeight.w800,
+
+                                          letterSpacing: 1,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+                              const SizedBox(height: 70),
+
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SignInScreen(),
+                                    ),
+                                  );
+                                },
+
+                                child: RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: 'Already have an account? ',
+
+                                        style: TextStyle(
+                                          color: const Color.fromARGB(
+                                            116,
+                                            255,
+                                            255,
+                                            255,
+                                          ),
+
+                                          fontSize: 16,
+                                        ),
+                                      ),
+
+                                      TextSpan(
+                                        text: 'Sign In',
+
+                                        style: TextStyle(
+                                          color: AppColors.primary,
+
+                                          fontSize: 16,
+
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
