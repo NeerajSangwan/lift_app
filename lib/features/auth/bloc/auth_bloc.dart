@@ -46,7 +46,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-        if (googleUser == null) return;
+        if (googleUser == null) {
+          emit(AuthInitial());
+          return;
+        }
 
         final GoogleSignInAuthentication googleAuth =
             await googleUser.authentication;
