@@ -20,3 +20,5 @@ final class AuthSignupRequested extends AuthEvent {
     required this.password,
   });
 }
+
+final class AuthGoogleSignInRequested extends AuthEvent {}

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lift_app/core/theme/app_theme.dart';
 import 'package:lift_app/features/auth/bloc/auth_bloc.dart';
+import 'package:lift_app/features/exercises/screens/forgetPasswordPage.dart';
 import 'package:lift_app/features/exercises/screens/home_screen.dart';
 import 'package:lift_app/features/exercises/screens/signup_screen.dart';
 
@@ -151,14 +152,33 @@ class _SignInScreenState extends State<SignInScreen> {
 
                                 children: [
                                   GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              Forgetpasswordpage(),
+                                        ),
+                                      );
+                                    },
 
-                                    child: const Text('Forgot Password?'),
+                                    child: const Text(
+                                      'Forgot Password?',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        color: Color.fromARGB(
+                                          205,
+                                          33,
+                                          149,
+                                          243,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
 
-                              const SizedBox(height: 25),
+                              const SizedBox(height: 15),
 
                               GestureDetector(
                                 onTap: () {
@@ -193,6 +213,52 @@ class _SignInScreenState extends State<SignInScreen> {
                                       Text(
                                         'SIGN IN',
 
+                                        style: TextStyle(
+                                          color: AppColors.background,
+
+                                          fontSize: 16,
+
+                                          fontWeight: FontWeight.w800,
+
+                                          letterSpacing: 1,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              GestureDetector(
+                                onTap: () {
+                                  context.read<AuthBloc>().add(
+                                    AuthGoogleSignInRequested(),
+                                  );
+                                },
+
+                                child: Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 17,
+                                  ),
+
+                                  decoration: BoxDecoration(
+                                    color: AppColors.primary,
+                                    borderRadius: BorderRadius.circular(14),
+                                    border: Border.all(),
+                                  ),
+
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/google.png',
+                                        height: 30,
+                                      ),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        'CONTINUE WITH GOOGLE',
                                         style: TextStyle(
                                           color: AppColors.background,
 

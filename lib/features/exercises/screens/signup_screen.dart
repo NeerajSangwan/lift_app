@@ -72,7 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
 
                       children: [
-                        const SizedBox(height: 65),
+                        const SizedBox(height: 30),
 
                         Text(
                           'Sign Up',
@@ -209,6 +209,51 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       Text(
                                         'SIGN UP',
 
+                                        style: TextStyle(
+                                          color: AppColors.background,
+
+                                          fontSize: 16,
+
+                                          fontWeight: FontWeight.w800,
+
+                                          letterSpacing: 1,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+
+                              GestureDetector(
+                                onTap: () {
+                                  context.read<AuthBloc>().add(
+                                    AuthGoogleSignInRequested(),
+                                  );
+                                },
+
+                                child: Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 16,
+                                  ),
+
+                                  decoration: BoxDecoration(
+                                    color: AppColors.primary,
+                                    borderRadius: BorderRadius.circular(14),
+                                    border: Border.all(),
+                                  ),
+
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/google.png',
+                                        height: 30,
+                                      ),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        'CONTINUE WITH GOOGLE',
                                         style: TextStyle(
                                           color: AppColors.background,
 

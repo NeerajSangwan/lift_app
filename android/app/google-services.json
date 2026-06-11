@@ -12,7 +12,20 @@
           "package_name": "com.example.lift_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "802252292798-qfo2c67vthkbhng8r8b2ru4dhsi0q9bh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lift_app",
+            "certificate_hash": "269ffd0bfe11a59ef0ceed34b67b894ae8f5c072"
+          }
+        },
+        {
+          "client_id": "802252292798-87vu5kgssrk1l5tvsdmau32839v61fkr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB5ya6NjbMJT9kQGHCSrUJAy2iQweQD90Y"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "802252292798-87vu5kgssrk1l5tvsdmau32839v61fkr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
